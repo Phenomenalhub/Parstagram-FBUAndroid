@@ -58,7 +58,7 @@
         app:srcCompat="@drawable/instagramlogo" />
 
     <Button
-        android:id="@+id/signupBtn"
+        android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
