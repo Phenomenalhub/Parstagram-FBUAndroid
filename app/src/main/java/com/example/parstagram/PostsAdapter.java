@@ -39,7 +39,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
     }
     @Override
     public int getItemCount() {
-        return 0;
+        return posts.size();
     }
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvUsername;
