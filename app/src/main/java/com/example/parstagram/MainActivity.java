@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             for (Post post : posts) {
-                Log.i(TAG, "Post: " + post.getDescription() + ", username:" + post.getUSer().getUsername());
+                Log.i(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
             }
 
         });
