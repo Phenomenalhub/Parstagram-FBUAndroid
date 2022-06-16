@@ -75,8 +75,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             });
             ParseFile image = post.getImage();
             if (image != null) {
+                ivImage.setVisibility(View.VISIBLE);
                 Glide.with(context).load(image.getUrl()).into(ivImage);
+            } else{
+                ivImage.setVisibility(View.GONE);
             }
+
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, PostDetailsActivity.class);
+
+                    i.putExtra("Posts", Parcels.wrap(post));
+                    context.startActivity(i);
+                    //finish();
+                }
+            });
         }
 
     }
