@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.parstagram.fragments.ComposeFragment;
+import com.example.parstagram.fragments.PostFragment;
+import com.example.parstagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
-    private Button logOut;
+    Button logOut;
     private Button btnFeeds;
     private File photoFile;
     public String photoFileName = "photo.jpg";
@@ -57,68 +61,76 @@ public class MainActivity extends AppCompatActivity {
         btnFeeds = findViewById(R.id.btnFeeds);
         logOut = findViewById(R.id.btnLogOut);
 
-        btnFeeds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FeedActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnFeeds.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent(MainActivity.this, FeedActivity.class);
+////                startActivity(intent);
+//            }
+//        });
 
-        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchCamera();
-            }
-        });
+//        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                launchCamera();
+//            }
+//        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragmentToShow = null;
                 switch (item.getItemId()) {
                     case R.id.action_home:
                         // do something here
-                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
-                        return true;
+                        //Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        fragmentToShow = new PostFragment();
+                        break;
                     case R.id.action_compose:
-                        Toast.makeText(MainActivity.this, "Compose", Toast.LENGTH_SHORT).show();
+                        fragmentToShow = new ComposeFragment();
+                        //Toast.makeText(MainActivity.this, "Compose", Toast.LENGTH_SHORT).show();
                         // do something here
-                        return true;
+                        break;
                     case R.id.action_profile:
                         // do something here
-                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
-                        return true;
-                    default: return true;
+                        fragmentToShow = new ProfileFragment();
+                        //Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+                        break;
+                    default: break;
                 }
+                if (fragmentToShow != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragmentToShow).commit();
+                }
+                return true;
             }
         });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
-        });
+//        logOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                logOut();
+//            }
+//        });
 
         //queryPosts();
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String description = etDescription.getText().toString();
-                if (description.isEmpty()){
-                    Toast.makeText(MainActivity.this,"Description cannot be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (photoFile == null || ivPostImage.getDrawable() == null){
-                    Toast.makeText(MainActivity.this, "There is no image!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost (description, currentUser, photoFile);
-            }
-        });
+//        btnSubmit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String description = etDescription.getText().toString();
+//                if (description.isEmpty()){
+//                    Toast.makeText(MainActivity.this,"Description cannot be empty", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (photoFile == null || ivPostImage.getDrawable() == null){
+//                    Toast.makeText(MainActivity.this, "There is no image!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                ParseUser currentUser = ParseUser.getCurrentUser();
+//                savePost (description, currentUser, photoFile);
+//            }
+//        });
     }
 
     private void logOut() {
