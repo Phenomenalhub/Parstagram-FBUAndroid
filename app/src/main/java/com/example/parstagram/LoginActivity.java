@@ -45,40 +45,51 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
+
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "onClick login button");
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                signUpUser(username, password);
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(i);
             }
         });
+//        btnSignup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i(TAG, "onClick login button");
+//                String username = etUsername.getText().toString();
+//                String password = etPassword.getText().toString();
+//                signUpUser(username, password);
+//            }
+//        });
     }
 
-    private void signUpUser(String username, String password){
-        // Create the ParseUser
-        ParseUser user = new ParseUser();
-        // Set core properties
-        user.setUsername(etUsername.getText().toString());
-        user.setPassword(etPassword.getText().toString());
-        // Invoke signUpInBackground
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Navigate user to main activity
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                    // Show a toast to indicate user successfully signed up for an account
-                } else {
-                    // Sign up didn't succeed. Look at the ParseException
-                    // to figure out what went wrong
-                    Toast.makeText(LoginActivity.this, "Issue with Signup: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
+    private void signUpUser(){
+        Intent i = new Intent(this, SignUpActivity.class);
+        startActivity(i);
+
+//        // Create the ParseUser
+//        ParseUser user = new ParseUser();
+//        // Set core properties
+//        user.setUsername(etUsername.getText().toString());
+//        user.setPassword(etPassword.getText().toString());
+//        // Invoke signUpInBackground
+//        user.signUpInBackground(new SignUpCallback() {
+//            public void done(ParseException e) {
+//                if (e == null) {
+//                    // Navigate user to main activity
+//                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(i);
+//                    finish();
+//                    // Show a toast to indicate user successfully signed up for an account
+//                } else {
+//                    // Sign up didn't succeed. Look at the ParseException
+//                    // to figure out what went wrong
+//                    Toast.makeText(LoginActivity.this, "Issue with Signup: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
+//        });
     }
 
     private void loginUser(String username, String password) {
