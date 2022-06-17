@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.parstagram.EndlessRecyclerViewScrollListener;
 import com.example.parstagram.Post;
 import com.example.parstagram.PostsAdapter;
 import com.example.parstagram.R;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostFragment extends Fragment {
+    public EndlessRecyclerViewScrollListener scrollListener;
     public static final String TAG = "PostFragment";
     private SwipeRefreshLayout swipeContainer;
     RecyclerView rvPosts;
@@ -44,6 +46,11 @@ public class PostFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //RecyclerView rvItems = (RecyclerView) view.findViewById(R.id.rvPosts);
+        rvPosts = view.findViewById(R.id.rvPosts);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
+
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -52,7 +59,7 @@ public class PostFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                queryPosts();
+                queryPosts(0);
             }
         });
         // Configure the refreshing colors
@@ -69,20 +76,29 @@ public class PostFragment extends Fragment {
         adapter = new PostsAdapter(getContext(), allPosts);
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
+        rvPosts.setLayoutManager(linearLayoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                queryPosts(allPosts.size());
+            }
+        };
+        rvPosts.addOnScrollListener(scrollListener);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        //rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         // query posts from Parstagram
-        queryPosts();
+        queryPosts(0);
     }
-    private void queryPosts() {
+    public void queryPosts(int skip) {
 
-        allPosts.clear();
+        //allPosts.clear();
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
         query.setLimit(20);
+        query.setSkip(skip);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts

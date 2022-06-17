@@ -155,6 +155,7 @@ public class ComposeFragment extends Fragment {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+
     }
 
     private void savePost(String description, ParseUser currentUser, File photoFile) {
