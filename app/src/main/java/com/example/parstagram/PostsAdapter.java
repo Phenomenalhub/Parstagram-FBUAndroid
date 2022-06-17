@@ -2,17 +2,23 @@ package com.example.parstagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -46,10 +52,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
     }
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvUsername;
+        private TextView tvlikes;
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvCreatedAt;
         private ImageView ivProfileImage;
+        private ImageButton ibHeart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -58,6 +66,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
+            ibHeart = itemView.findViewById(R.id.ibHeart);
+            tvlikes = itemView.findViewById(R.id.tvlikes);
 
         }
 
@@ -87,7 +97,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
             if (imageProfile != null) {
                 ivProfileImage.setVisibility(View.VISIBLE);
-                Glide.with(context).load(imageProfile.getUrl()).into(ivProfileImage);
+                Glide.with(context).load(imageProfile.getUrl()).centerCrop().circleCrop().into(ivProfileImage);
             } else{
                 ivProfileImage.setVisibility(View.GONE);
             }
@@ -100,6 +110,29 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                     i.putExtra("Posts", Parcels.wrap(post));
                     context.startActivity(i);
                     //finish();
+                }
+            });
+            ibHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //ibHeart.setColorFilter(Color.GRAY);
+
+                    Log.i("test", "button clicks");
+                    List<String> likedBy = post.getLikedBy();
+                    if (!likedBy.contains(ParseUser.getCurrentUser().getObjectId())){
+                        likedBy.add(ParseUser.getCurrentUser().toString());
+                        post.setLikedBy(likedBy);
+                        //ibHeart.setColorFilter(Color.RED);
+                        ibHeart.setBackgroundResource(R.drawable.ic_ufi_heart_active);
+
+                    } else {
+                        likedBy.remove(ParseUser.getCurrentUser().getObjectId());
+                        post.setLikedBy(likedBy);
+                        ibHeart.setColorFilter(Color.GRAY);
+                        ibHeart.setBackgroundResource(R.drawable.ufi_heart);
+                    }
+                    post.saveInBackground();
+                    tvlikes.setText(post.likeCountDisplayText());
                 }
             });
         }

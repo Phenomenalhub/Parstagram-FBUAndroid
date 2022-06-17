@@ -37,16 +37,21 @@ public class Post extends ParseObject {
     public void setUSer(ParseUser user){
         put(KEY_USER, user);
     }
+    public String likeCountDisplayText(){
+        String likestext = String.valueOf(getLikedBy().size());
+        likestext += getLikedBy().size() == 1 ? "like" : "likes";
+        return likestext;
+    }
 
-    public List<ParseUser> getLikedBy(){
-        List<ParseUser> likedBy = getList(KEY_LIKED_BY);
+    public List<String> getLikedBy(){
+        List<String> likedBy = getList(KEY_LIKED_BY);
         if (likedBy == null){
             return new ArrayList<>();
         }
         return likedBy;
     }
 
-    public void setKeyLikedBy(List<ParseUser> newLikedBy){
+    public void setLikedBy(List<String> newLikedBy){
         put(KEY_LIKED_BY, newLikedBy);
     }
 

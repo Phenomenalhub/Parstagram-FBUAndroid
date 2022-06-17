@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_direct.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_meta.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_ufi_heart_active.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_feed.xml" value="0.20092592592592592" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3055555555555556" />
