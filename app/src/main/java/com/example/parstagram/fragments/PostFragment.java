@@ -106,6 +106,7 @@ public class PostFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
     }
 }
 

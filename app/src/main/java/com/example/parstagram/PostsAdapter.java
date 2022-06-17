@@ -49,6 +49,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvCreatedAt;
+        private ImageView ivProfileImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +57,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
+            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
 
         }
 
@@ -79,6 +81,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             } else{
                 ivImage.setVisibility(View.GONE);
+            }
+
+            ParseFile imageProfile = post.getUser().getProfileImage();
+
+            if (imageProfile != null) {
+                ivProfileImage.setVisibility(View.VISIBLE);
+                Glide.with(context).load(imageProfile.getUrl()).into(ivProfileImage);
+            } else{
+                ivProfileImage.setVisibility(View.GONE);
             }
 
             ivImage.setOnClickListener(new View.OnClickListener() {
