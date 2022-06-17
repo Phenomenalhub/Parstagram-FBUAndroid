@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
-        btnFeeds = findViewById(R.id.btnFeeds);
         logOut = findViewById(R.id.btnLogOut);
 
 //        btnFeeds.setOnClickListener(new View.OnClickListener() {

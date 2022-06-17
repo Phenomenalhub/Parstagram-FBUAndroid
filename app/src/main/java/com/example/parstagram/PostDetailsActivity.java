@@ -35,6 +35,7 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         tvDescription.setText(post.getDescription());
         tvUsername.setText(post.getUser().getUsername());
+        tvCreatedAt.setText(post.getCreatedAt().toString());
         ParseFile image = post.getImage();
 
         ParseFile userImage = post.getUser().getProfileImage();
@@ -43,6 +44,5 @@ public class PostDetailsActivity extends AppCompatActivity {
         if (userImage != null) {
             Glide.with(this).load(userImage.getUrl()).into(ivProfileImage);
         }
-        //tvCreatedAt.setText(Utilities.getSimpleTime(post.getCreatedAt()));
     }
 }
