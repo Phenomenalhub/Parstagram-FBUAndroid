@@ -49,7 +49,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src="ezgif.com-gif-maker%20(3).gif" width=300><br>
+<img src="ezgif.com-gif-maker%20(3).gif" width=300><br>     <img src="SignUp.gif" width=300><br>
 
 <img src="Insta1.gif" width=300><br>
 
