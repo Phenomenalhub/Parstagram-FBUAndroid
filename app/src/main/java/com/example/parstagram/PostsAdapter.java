@@ -7,27 +7,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-
 import org.parceler.Parcels;
-
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
     private Context context;
     private List<Post> posts;
-
 
     @NonNull
     @Override
@@ -72,7 +65,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         }
 
         public void bind(Post post) {
-
             // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
@@ -92,7 +84,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             } else{
                 ivImage.setVisibility(View.GONE);
             }
-
             ParseFile imageProfile = post.getUser().getProfileImage();
 
             if (imageProfile != null) {
@@ -101,7 +92,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             } else{
                 ivProfileImage.setVisibility(View.GONE);
             }
-
             ivImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,22 +99,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
                     i.putExtra("Posts", Parcels.wrap(post));
                     context.startActivity(i);
-                    //finish();
                 }
             });
             ibHeart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //ibHeart.setColorFilter(Color.GRAY);
-
                     Log.i("test", "button clicks");
                     List<String> likedBy = post.getLikedBy();
                     if (!likedBy.contains(ParseUser.getCurrentUser().getObjectId())){
                         likedBy.add(ParseUser.getCurrentUser().toString());
                         post.setLikedBy(likedBy);
-                        //ibHeart.setColorFilter(Color.RED);
                         ibHeart.setBackgroundResource(R.drawable.ic_ufi_heart_active);
-
                     } else {
                         likedBy.remove(ParseUser.getCurrentUser().getObjectId());
                         post.setLikedBy(likedBy);
@@ -136,7 +121,5 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                 }
             });
         }
-
     }
-
 }

@@ -28,11 +28,9 @@ public class SignUpActivity extends AppCompatActivity {
         if (ParseUser.getCurrentUser() != null){
             goLoginActivity();
         }
-
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnSignup = findViewById(R.id.btnSignup);
-
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,11 +67,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-
     private void goLoginActivity() {
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
-
     }
 }

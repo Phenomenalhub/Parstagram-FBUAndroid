@@ -19,12 +19,10 @@ public class PostDetailsActivity extends AppCompatActivity {
     TextView tvCreatedAt;
     ImageView ivProfileImage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
-
         tvDescription=findViewById(R.id.tvDescription);
         tvUsername = findViewById(R.id.tvUsername);
         ivImage = findViewById(R.id.ivImage);
@@ -37,7 +35,6 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvUsername.setText(post.getUser().getUsername());
         tvCreatedAt.setText(post.getCreatedAt().toString());
         ParseFile image = post.getImage();
-
         ParseFile userImage = post.getUser().getProfileImage();
         Glide.with(this).load(image.getUrl()).into(ivImage);
 

@@ -10,12 +10,10 @@ import com.parse.ParseUser;
 
 public class SplashActivity extends AppCompatActivity {
     Handler handler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         // delay 1 sec
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -27,23 +25,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         },300);
     }
-
-//
-//        if (ParseUser.getCurrentUser() != null){
-//            goMainActivity();
-//        } else {
-//            goLoginActivity();
-//        }
-//    }
-//
-//    private void goLoginActivity() {
-//        Intent i = new Intent(this, LoginActivity.class);
-//        startActivity(i);
-//        finish();
-//    }
-//    private void goMainActivity() {
-//        Intent i = new Intent(this, MainActivity.class);
-//        startActivity(i);
-//        finish();
-//    }
 }

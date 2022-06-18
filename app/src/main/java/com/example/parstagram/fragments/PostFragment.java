@@ -33,7 +33,6 @@ public class PostFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     public PostFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -46,11 +45,8 @@ public class PostFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //RecyclerView rvItems = (RecyclerView) view.findViewById(R.id.rvPosts);
         rvPosts = view.findViewById(R.id.rvPosts);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-
-
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -58,7 +54,6 @@ public class PostFragment extends Fragment {
             public void onRefresh() {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
                 queryPosts(0);
             }
         });
@@ -67,10 +62,7 @@ public class PostFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
         rvPosts = view.findViewById(R.id.rvPosts);
-
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
@@ -90,8 +82,6 @@ public class PostFragment extends Fragment {
         queryPosts(0);
     }
     public void queryPosts(int skip) {
-
-        //allPosts.clear();
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -110,19 +100,16 @@ public class PostFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
                 }
-
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
                 swipeContainer.setRefreshing(false);
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 }
 

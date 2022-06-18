@@ -51,11 +51,9 @@ public class ProfileFragment extends Fragment {
         view.findViewById(R.id.tvLogout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Log user out
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 startActivity(i);
                 getActivity().finish();
@@ -77,10 +75,7 @@ public class ProfileFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
         rvPosts = view.findViewById(R.id.rvPosts);
-
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
@@ -92,7 +87,6 @@ public class ProfileFragment extends Fragment {
         queryPosts();
     }
     private void queryPosts() {
-
         allPosts.clear();
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
@@ -112,18 +106,15 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
                 }
-
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
                 swipeContainer.setRefreshing(false);
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 }

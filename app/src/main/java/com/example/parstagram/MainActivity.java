@@ -35,8 +35,6 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
-
-// Let user create a post by taking a photo with their camera
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE =  42;
@@ -44,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
-    Button logOut;
-    private Button btnFeeds;
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
@@ -58,44 +54,21 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
-        logOut = findViewById(R.id.btnLogOut);
-
-//        btnFeeds.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent = new Intent(MainActivity.this, FeedActivity.class);
-////                startActivity(intent);
-//            }
-//        });
-
-//        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                launchCamera();
-//            }
-//        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragmentToShow = null;
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        // do something here
-                        //Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         fragmentToShow = new PostFragment();
                         break;
                     case R.id.action_compose:
                         fragmentToShow = new ComposeFragment();
-                        //Toast.makeText(MainActivity.this, "Compose", Toast.LENGTH_SHORT).show();
-                        // do something here
                         break;
                     case R.id.action_profile:
-                        // do something here
                         fragmentToShow = new ProfileFragment();
-                        //Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                         break;
                     default: break;
                 }
@@ -106,22 +79,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
-
-
-//    private void queryPosts() {
-//        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-//        query.include(Post.KEY_USER);
-//        query.findInBackground((posts, e) -> {
-//            if (e != null){
-//                Log.e(TAG, "Issue with getting posts", e);
-//                return;
-//            }
-//            for (Post post : posts) {
-//                Log.i(TAG, "Post: " + post.getDescription() + ", username:" + post.getUser().getUsername());
-//            }
-//
-//        });
-//    }
 }
 }

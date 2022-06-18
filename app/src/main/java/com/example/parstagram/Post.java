@@ -4,7 +4,6 @@ import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,6 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final  String KEY_LIKED_BY = "likedBy";
-
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -42,7 +40,6 @@ public class Post extends ParseObject {
         likestext += getLikedBy().size() == 1 ? "like" : "likes";
         return likestext;
     }
-
     public List<String> getLikedBy(){
         List<String> likedBy = getList(KEY_LIKED_BY);
         if (likedBy == null){
@@ -54,5 +51,4 @@ public class Post extends ParseObject {
     public void setLikedBy(List<String> newLikedBy){
         put(KEY_LIKED_BY, newLikedBy);
     }
-
 }
