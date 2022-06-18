@@ -42,7 +42,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         Glide.with(this).load(image.getUrl()).into(ivImage);
 
         if (userImage != null) {
-            Glide.with(this).load(userImage.getUrl()).into(ivProfileImage);
+            Glide.with(this).load(userImage.getUrl()).centerCrop().circleCrop().into(ivProfileImage);
         }
     }
 }
